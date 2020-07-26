@@ -17,16 +17,16 @@ input.onButtonPressed(Button.A, function () {
 })
 radio.onReceivedValue(function (name, value) {
     if (name == "x") {
-        if (value >= 582) {
-            x = Math.map(value, 582, 1023, 0, 512)
+        if (value >= x0) {
+            x = Math.map(value, x0, 1023, 0, 512)
         } else {
-            x = Math.map(value, 0, 582, -512, 0)
+            x = Math.map(value, 0, x0, -512, 0)
         }
     } else if (name == "y") {
-        if (value >= 568) {
-            y = Math.map(value, 568, 1023, 0, 512)
+        if (value >= y0) {
+            y = Math.map(value, y0, 1023, 0, 512)
         } else {
-            y = Math.map(value, 0, 568, -512, 0)
+            y = Math.map(value, 0, y0, -512, 0)
         }
     } else if (name == "Dial") {
         Dial = Math.map(value, 5, 800, 0, 255)
@@ -36,8 +36,12 @@ radio.onReceivedValue(function (name, value) {
         } else {
             maqueen.motorStop(maqueen.Motors.All)
         }
-    } else if (false) {
-    	
+    } else if (name == "cal_x") {
+        x0 = value
+        serial.writeValue(name, value)
+    } else if (name == "cal_y") {
+        y0 = value
+        serial.writeValue(name, value)
     } else if (false) {
     	
     } else {
@@ -56,7 +60,10 @@ function Right (speed: number) {
 let Dial = 0
 let x = 0
 let y = 0
-y = 0
+let y0 = 0
+let x0 = 0
+x0 = 582
+y0 = 568
 radio.setGroup(1)
 basic.showIcon(IconNames.Happy)
 serial.writeLine("Started")

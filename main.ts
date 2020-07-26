@@ -4,11 +4,11 @@ input.onButtonPressed(Button.A, function () {
 radio.onReceivedValue(function (name, value) {
     serial.writeValue(name, value)
     if (name == "x") {
-        x = value
+        x = value - 512
     } else if (name == "y") {
-        y = value
+        y = value - 512
     } else if (name == "Dial") {
-        Dial = Math.map(value, 5, 950, 0, 255)
+        Dial = Math.map(value, 5, 800, 0, 255)
     } else if (name == "Red") {
         if (value == 1) {
             maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, Dial)
@@ -29,5 +29,6 @@ let x = 0
 radio.setGroup(1)
 basic.showIcon(IconNames.Happy)
 basic.forever(function () {
-	
+    maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, (y + x) / 4)
+    maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, (y - x) / 4)
 })
